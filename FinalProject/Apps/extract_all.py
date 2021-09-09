@@ -28,7 +28,7 @@ def extract_all_talent():
             if 'json' in obj['Key']:
                 extracted_dicts = extract_json(obj, empty_dicts)
             if 'txt' in obj['Key']:
-                scores_df.append(extract_txt(obj))
+                scores_df.append(extract_txt(obj['Key']))
     return extracted_dicts, pd.concat(scores_df)
 
 
