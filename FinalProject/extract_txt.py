@@ -23,10 +23,17 @@ def extract_txt(obj):
     # create variables for separating candidate data
     names = []
     scores=[]
-    # separate string to obtain names and scores as strings
+    # separate string to obtain names in title format and scores as strings
     for item in candidate_data:
-        names.append(item[:(item.index("Psychometrics"))-4])
+        names.append((item[:(item.index("Psychometrics"))-4]).lower().title())
         scores.append(item[item.index("Psychometrics"):])
+
+    # separate names into first and last names
+    first_name = []
+    last_name = []
+    for name in names:
+        first_name.append(name[:name.index(" ")].lower().title())
+        last_name.append(name[name.index(" ") + 1:].lower().title())
 
     # create empty lists for psychometrics and presentation as strings
     psychometrics = []
@@ -52,10 +59,11 @@ def extract_txt(obj):
         presentation_score.append(presentation_score_list)
 
     # Concatenate columns for Name, Scores, Date and Location into a dataframe
-    df = pd.DataFrame(names, columns=["Names"])
-    df.insert(1, "Psychometrics Score", psychometrics_score, True)
-    df.insert(2, "Presentation Score", presentation_score, True)
-    df.insert(3, "Date", date, True)
-    df.insert(4, "Location", location, True)
+    df = pd.DataFrame(first_name, columns=["First Name"])
+    df.insert(1, "Last Name", last_name, True)
+    df.insert(2, "Psychometrics Score", psychometrics_score, True)
+    df.insert(3, "Presentation Score", presentation_score, True)
+    df.insert(4, "Date", date, True)
+    df.insert(5, "Location", location, True)
 
     return df
