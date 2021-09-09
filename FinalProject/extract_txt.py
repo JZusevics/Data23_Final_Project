@@ -1,10 +1,16 @@
 def extract_txt(obj):
+    from datetime import datetime
+    import pandas as pd
+    import boto3
     """
 
     :param obj: the object from s3
     :return: Data Frame from the txt file
     """
     # get s3 object
+    s3_client = boto3.client('s3')
+    s3_resource = boto3.resource('s3')
+    bucket_name = 'data23-finalproject-2'
     s3_object = s3_client.get_object(
                     Bucket=bucket_name,
                     Key=obj['Key']
