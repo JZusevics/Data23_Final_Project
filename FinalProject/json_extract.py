@@ -5,7 +5,7 @@ from ast import literal_eval
 from datetime import datetime
 import json
 
-
+#connect to s3
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 bucket_name = 'data23-finalproject-2'
