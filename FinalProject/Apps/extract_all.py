@@ -35,7 +35,25 @@ def extract_all_talent():
     return extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
 
 
+# ensures all names are in title format
+x["name"] = x.name.str.title()
+# splits name column into first and last name - adds at end of df
+x[["first_name", "last_name"]] = x.name.str.split(" ", 1, expand=True)
+# pop out name column as no longer needed
+x.pop("name")
 
-
+# x = x["invited_date"].fillna(0)
+# # x = x.month.fillna("0")
+# x["date_int"] = x.invited_date.astype(int, errors="ignore")
+# print(x)
+#x["date_int"] = x.invited_date.astype(int, errors="ignore")
+x["date_int"] = x.invited_date.astype(str)
+x["split"]
+x["invitation_date"] = x.invited_date.astype(str) + " " + x.month.str.lower()
+#x["invitation_date"] = x.invitation_date.replace({".0": ""}, inplace=True)
+x.pop("invited_date")
+x.pop("month")
+#x.pop("date_int")
+print(x)
 
 
