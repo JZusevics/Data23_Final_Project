@@ -23,13 +23,16 @@ def extract_all_talent():
 
     empty_dicts = {}
     scores_df = []
+    csv_df = []
     for page in pages:
         for obj in page['Contents']:
             if 'json' in obj['Key']:
                 extracted_dicts = extract_json(obj, empty_dicts)
             if 'txt' in obj['Key']:
                 scores_df.append(extract_txt(obj['Key']))
-    return extracted_dicts, pd.concat(scores_df)
+            if 'csv' in obj['Key']:
+                csv_df.append(etc.extract_csv(obj))
+    return extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
 
 
 
