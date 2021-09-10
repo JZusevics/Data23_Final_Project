@@ -31,7 +31,7 @@ def extract_all_talent():
             if 'txt' in obj['Key']:
                 scores_df.append(extract_txt(obj['Key']))
             if 'csv' in obj['Key']:
-                csv_df.append(etc.extract_csv(obj))
+                csv_df.append(extract_csv(obj))
     return extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
 
 
