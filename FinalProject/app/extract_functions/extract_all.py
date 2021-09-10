@@ -1,4 +1,4 @@
-from Data23_Final_Project.FinalProject.config_manager import *
+from FinalProject.config_manager import *
 from extract_talent_txt import *
 from extract_academy_csv import *
 from extract_talent_csv import *

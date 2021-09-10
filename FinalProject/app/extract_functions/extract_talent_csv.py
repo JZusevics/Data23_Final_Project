@@ -1,4 +1,4 @@
-from Data23_Final_Project.FinalProject.config_manager import *
+from FinalProject.config_manager import *
 
 def extract_csv(key):
     """

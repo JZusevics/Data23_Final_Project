@@ -1,4 +1,4 @@
-from Data23_Final_Project.definitions import PROJECT_ROOT_DIR
+from definitions import PROJECT_ROOT_DIR
 import configparser
 import os
 import boto3
