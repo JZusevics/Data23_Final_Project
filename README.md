@@ -1,6 +1,6 @@
-# Data23_Final_Project
+# Data23 Final Project
 
-Data 23 Final Project 
+current version = 0.2 
 
 
 
