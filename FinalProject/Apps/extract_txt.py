@@ -24,7 +24,7 @@ def extract_txt(key):
     date = datetime.strptime(lines[0], "%A %d %B %Y").date()
     location = lines[1]
     # from 3rd line data has name, psychometrics and presentation scores
-    candidate_data = lines[3:-1]
+    candidate_data = lines[3:]
 
     # create variables for separating candidate data
     names = []
