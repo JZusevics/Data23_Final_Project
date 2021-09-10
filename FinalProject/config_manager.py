@@ -19,12 +19,15 @@ S3_CLIENT = boto3.client('s3')
 S3_RESOURCE = boto3.resource('s3')
 BUCKET_CONTENTS_TALENT = S3_CLIENT.list_objects_v2(
         Bucket=S3_BUCKET,
-        Prefix='Talent'
+        Prefix=_config['default']['talent']
     )
 BUCKET_CONTENTS_ACADEMY = S3_CLIENT.list_objects_v2(
         Bucket=S3_BUCKET,
-        Prefix='Academy'
+        Prefix=_config['default']['academy']
     )
 TALENT_PAGINATOR = S3_CLIENT.get_paginator('list_objects_v2')
-TALENT_PAGES = TALENT_PAGINATOR.paginate(Bucket=S3_BUCKET, Prefix='Talent')
+TALENT_PAGES = TALENT_PAGINATOR.paginate(
+    Bucket=S3_BUCKET,
+    Prefix=_config['default']['talent']
+)
 
