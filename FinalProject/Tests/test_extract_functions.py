@@ -42,6 +42,7 @@ class ExtractionTests(unittest.TestCase):
                           'geo_flex', 'financial_support_self', 'result', 'course_interest'])
         self.assertEqual(self.extracted_json['Latisha Ibel 03/04/2019']['strengths'], ["Passionate", "Determined"])
 
+    # test to check if talent csv files are extracted correctly
     def test_d_extract_csv(self):
         self.assertEqual(type(self.extracted_talent_csv), pd.DataFrame)
         self.assertEqual(len(self.extracted_talent_csv), 379)
