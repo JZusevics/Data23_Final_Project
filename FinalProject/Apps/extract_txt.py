@@ -5,7 +5,7 @@ import boto3
 
 def extract_txt(key):
     """
-    :param obj: the object from s3
+    :param obj: the object key from s3
     :return: Data Frame from the txt file
     """
     # get s3 object
@@ -25,7 +25,7 @@ def extract_txt(key):
     date = datetime.strptime(lines[0], "%A %d %B %Y").date()
     location = lines[1]
     # from 3rd line data has name, psychometrics and presentation scores
-    candidate_data = lines[3:-1]
+    candidate_data = lines[3:]
 
     # create variables for separating candidate data
     names = []
