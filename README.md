@@ -23,9 +23,11 @@ Naming Convention
 Final Project File Structure:
 * app 📁
   * extract_functions 📁
+    * _extract_all.py_  
     * _extract_academy_csv.py_
     * _extract_talent_json.py_
     * _extract_talent_txt.py_
+    * _extract_talent_csv.py_
   * cleaning_functions 📁
 * data 📁
 * test 📁
