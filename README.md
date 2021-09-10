@@ -8,6 +8,7 @@ Final Project File Structure:
     * _extract_academy_csv.py_
     * _extract_talent_json.py_
     * _extract_talent_txt.py_
+  * cleaning_functions 📁
 * data 📁
 * test 📁
 * _init.py_
