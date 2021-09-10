@@ -12,6 +12,7 @@ class ExtractionTests(unittest.TestCase):
     extracted_txt = et.extract_txt('Talent/Sparta Day 26 September 2019.txt')
     extracted_json = ej.extract_json('Talent/13467.json', {})
     extracted_talent_csv = ec.extract_csv('Talent/April2019Applicants.csv')
+    extracted_talent_csv_2 = ec.extract_csv('Talent/Feb2019Applicants.csv')
 
     # test to check if academy csv files are extracted correctly
     def test_a_academy_csv(self):
@@ -41,5 +42,13 @@ class ExtractionTests(unittest.TestCase):
                           'geo_flex', 'financial_support_self', 'result', 'course_interest'])
         self.assertEqual(self.extracted_json['Latisha Ibel 03/04/2019']['strengths'], ["Passionate", "Determined"])
 
-    # def test_d_extract_csv(self):
+    def test_d_extract_csv(self):
+        self.assertEqual(type(self.extracted_talent_csv), pd.DataFrame)
+        self.assertEqual(len(self.extracted_talent_csv), 379)
+        self.assertEqual(len(self.extracted_talent_csv.columns), 14)
+        self.assertEqual(list(self.extracted_talent_csv.columns), ['id', 'name', 'gender', 'dob', 'email', 'city',
+                                                                   'address', 'postcode', 'phone_number', 'uni',
+                                                                   'degree', 'invited_date', 'month', 'invited_by'])
+        self.assertEqual(len(self.extracted_talent_csv_2), 372)
+        self.assertEqual(len(self.extracted_talent_csv_2.columns), 14)
 
