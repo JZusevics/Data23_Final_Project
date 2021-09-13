@@ -1,4 +1,4 @@
-from definitions import PROJECT_ROOT_DIR
+from Data23_Final_Project.definitions import PROJECT_ROOT_DIR
 import configparser
 import os
 import boto3
@@ -30,4 +30,3 @@ TALENT_PAGES = TALENT_PAGINATOR.paginate(
     Bucket=S3_BUCKET,
     Prefix=_config['default']['talent']
 )
-

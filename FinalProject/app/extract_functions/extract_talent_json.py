@@ -1,9 +1,9 @@
-from FinalProject.config_manager import *
+from Data23_Final_Project.FinalProject.config_manager import *
+
 
 # Extracts all the JSON data from the specified object and returns it in a dictionary
 def extract_json(key, dictionaries):
     """
-
     :param key: Selects s3 key to extract
     :param dictionaries: Initially empty dictionary to have json files appended to
     :return: dictionary of json names and files {"name_and_date": "json"}
@@ -19,7 +19,7 @@ def extract_json(key, dictionaries):
     # Extract and assign name + date as key for each json file
     name_and_date = dict["name"] + " " + dict["date"]
     dictionaries[name_and_date] = dict
-    return dictionaries ## return dictionary
+    return dictionaries  # return dictionary
 
     # Extracts all JSON data from the TALENT bucket and returns them in a dictionary with a name + date value as key
 def extract_just_json(bucket_name):
@@ -38,7 +38,7 @@ def extract_just_json(bucket_name):
         return extracted_dicts
 
 
-## For testing and data exploration
+# For testing and data exploration
 if __name__ == '__main__':
     x = extract_just_json(S3_BUCKET)
     # saves json onto local machine

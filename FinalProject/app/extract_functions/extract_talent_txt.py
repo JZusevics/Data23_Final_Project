@@ -1,9 +1,10 @@
-from FinalProject.config_manager import *
+from Data23_Final_Project.FinalProject.config_manager import *
+
 
 # Extracts all TXT data from the specified object and returns it in a DATA FRAME
 def extract_txt(key):
     """
-    :param obj: the object key from s3
+    :param key: the object key from s3
     :return: Data Frame from the txt file
     """
     # get s3 object
@@ -29,13 +30,6 @@ def extract_txt(key):
         names.append((item[:(item.index("Psychometrics")) - 4]).lower().title())
         scores.append(item[item.index("Psychometrics"):])
 
-    # separate names into first and last names
-    first_name = []
-    last_name = []
-    for name in names:
-        first_name.append(name[:name.index(" ")].lower().title())
-        last_name.append(name[name.index(" ") + 1:].lower().title())
-
     # create empty lists for psychometrics and presentation as strings
     psychometrics = []
     presentation = []
@@ -60,11 +54,10 @@ def extract_txt(key):
         presentation_score.append(presentation_score_list)
 
     # Concatenate columns for Name, Scores, Date and Location into a dataframe
-    df = pd.DataFrame(first_name, columns=["First Name"])
-    df.insert(1, "Last Name", last_name, True)
-    df.insert(2, "Psychometrics Score", psychometrics_score, True)
-    df.insert(3, "Presentation Score", presentation_score, True)
-    df.insert(4, "Date", date, True)
-    df.insert(5, "Location", location, True)
+    df = pd.DataFrame(names, columns=["name"])
+    df.insert(1, "psychometrics_score", psychometrics_score, True)
+    df.insert(2, "presentation_score", presentation_score, True)
+    df.insert(3, "date", date, True)
+    df.insert(4, "location", location, True)
 
     return df

@@ -1,4 +1,5 @@
-from FinalProject.config_manager import *
+from Data23_Final_Project.FinalProject.config_manager import *
+
 
 # Extracts all CSV data from the ACADEMY bucket and returns them in a LIST
 def extract_academy_csv():
@@ -16,5 +17,4 @@ def extract_academy_csv():
         # Put the data from the file into a Pandas Data Frame
         df = pd.read_csv(s3_object['Body'])
         academy_list.append([object['Key'], df])
-    return academy_list # Return the data from all files in a list
-
+    return academy_list  # Return the data from all files in a list

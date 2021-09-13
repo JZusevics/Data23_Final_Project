@@ -1,19 +1,19 @@
-from FinalProject.config_manager import *
-from extract_talent_txt import *
-from extract_academy_csv import *
-from extract_talent_csv import *
-from extract_talent_json import *
+from Data23_Final_Project.FinalProject.config_manager import *
+from Data23_Final_Project.FinalProject.app.extract_functions.extract_academy_csv import *
+from Data23_Final_Project.FinalProject.app.extract_functions.extract_talent_txt import *
+from Data23_Final_Project.FinalProject.app.extract_functions.extract_talent_json import *
+from Data23_Final_Project.FinalProject.app.extract_functions.extract_talent_csv import *
 
 
 def extract_all():
     """
     :return: list of academy CSV, Json master dictionary, Data Frame of txt data, Data Frame of talent CSV
     """
-    #create empty containers
+    # create empty containers
     empty_dicts = {}
     scores_df = []
     csv_df = []
-    academy_csv_list =[]
+    extracted_dicts = {}
 
     # call in all the academy csv
     academy_csv_list = extract_academy_csv()
@@ -22,9 +22,9 @@ def extract_all():
     for page in TALENT_PAGES:
         for obj in page['Contents']:
             if 'json' in obj['Key']:
-                extracted_dicts = extract_json(obj, empty_dicts)
+                extracted_dicts = extract_json(obj['Key'], empty_dicts)
             if 'txt' in obj['Key']:
                 scores_df.append(extract_txt(obj['Key']))
             if 'csv' in obj['Key']:
-                csv_df.append(extract_csv(obj))
+                csv_df.append(extract_csv(obj['Key']))
     return academy_csv_list, extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
