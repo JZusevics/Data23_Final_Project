@@ -22,9 +22,9 @@ def extract_all():
     for page in TALENT_PAGES:
         for obj in page['Contents']:
             if 'json' in obj['Key']:
-                extracted_dicts = extract_json(obj, empty_dicts)
+                extracted_dicts = extract_json(obj['Key'], empty_dicts)
             if 'txt' in obj['Key']:
                 scores_df.append(extract_txt(obj['Key']))
             if 'csv' in obj['Key']:
-                csv_df.append(extract_csv(obj))
+                csv_df.append(extract_csv(obj['Key']))
     return academy_csv_list, extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
