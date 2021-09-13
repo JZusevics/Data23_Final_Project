@@ -52,7 +52,6 @@ def results_fix(name_date, candidate_json):
         del candidate_json[candidate]['result']
         if test == 'Pass':
             candidate_json[candidate]['pass'] = True
-            count += 1
         elif test == 'Fail':
             candidate_json[candidate]['pass'] = False
         else:
@@ -64,8 +63,9 @@ def results_fix(name_date, candidate_json):
 def name_strip(name_dates ,candidate_json):
     for candidate in name_dates:
         candidate_json[candidate]['name'] = str(candidate_json[candidate]['name']).strip().lower().title()
-        if str(candidate_json[candidate]['name']).strip().lower().title().count(' ') > 1:
-            print(str(candidate_json[candidate]['name']).strip().lower().title())
+        # code commented out can be used to check for incorrect name formats
+        #if str(candidate_json[candidate]['name']).strip().lower().title().count(' ') > 1:
+         #   print(str(candidate_json[candidate]['name']).strip().lower().title())
     return name_dates
 
 
@@ -120,7 +120,7 @@ strengths_id = skill_id_generator(name_dates, 'strengths')
 weakness_id = skill_id_generator(name_dates, 'weaknesses')
 tech_skill_id = tech_skill_id_generator(name_dates, 'tech_self_score')
 candidate_json = bool_fix(name_dates, candidate_json)
-candidate_json = results_fix(name_date, candidate_json)
+candidate_json = results_fix(name_dates, candidate_json)
 
 with open('data_clean.json', 'w') as fp:
     json.dump(candidate_json, fp, sort_keys=True, indent=4)
