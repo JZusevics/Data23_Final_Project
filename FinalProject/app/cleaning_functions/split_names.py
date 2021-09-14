@@ -8,9 +8,15 @@ def split_names(df: pd.DataFrame):
     middle_name = []
     last_name = []
 
+    df["name"] = df['name'].str.replace(" '", "'")
+    df["name"] = df['name'].str.replace("' ", "'")
+    df["name"] = df['name'].str.replace(" - ", "'")
+
     for name in df["name"]:
         # Split names on spaces
         split_name = name.split()
+        for index, name in enumerate(split_name):
+            split_name[index] = name.title()
         # If more than 2 names
         if len(split_name) > 2:
             # If the first name and second name are the same put them together
@@ -28,7 +34,7 @@ def split_names(df: pd.DataFrame):
         first_name.append(split_name[0].title())
         last_name.append(split_name[-1].title())
         if len(split_name) == 2:
-            middle_name.append(numpy.nan)
+            middle_name.append(None)
         else:
             middle_name.append("".join(split_name[1:-1]).title())
 
