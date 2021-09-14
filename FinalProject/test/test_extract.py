@@ -67,9 +67,20 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(len(self.extracted_all[2].columns), 5)
         self.assertEqual(list(self.extracted_all[2].columns), ['name', 'psychometrics_score',
                                                             'presentation_score', 'date', 'location'])
+        csv_count = 0
+        txt_count = 0
+        for page in TALENT_PAGES:
+            for obj in page['Contents']:
+                if 'txt' in obj['Key']:
+                    txt_count += 1
+                if 'csv' in obj['Key']:
+                    csv_count += 1
+        self.assertEqual(txt_count, 152)
+        self.assertEqual(csv_count, 12)
 
         self.assertEqual(type(self.extracted_all[3]), pd.DataFrame)
         self.assertEqual(len(self.extracted_all[3].columns), 14)
         self.assertEqual(list(self.extracted_all[3].columns), ['id', 'name', 'gender', 'dob', 'email', 'city',
                                                                    'address', 'postcode', 'phone_number', 'uni',
                                                                    'degree', 'invited_date', 'month', 'invited_by'])
+        self.assertEqual(len(self.extracted_all[3]), 4691)
