@@ -15,8 +15,8 @@ def extract_all():
     csv_df = []
     extracted_dicts = {}
 
-    # call in all the academy csv
-    academy_csv_list = extract_academy_csv()
+    # call in the academy csv extract function
+    academy_csv_df = extract_academy_csv()
 
     # Extract all data from the Talent bucket
     for page in TALENT_PAGES:
@@ -27,4 +27,4 @@ def extract_all():
                 scores_df.append(extract_txt(obj['Key']))
             if 'csv' in obj['Key']:
                 csv_df.append(extract_csv(obj['Key']))
-    return academy_csv_list, extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
+    return academy_csv_df, extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
