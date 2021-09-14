@@ -35,9 +35,9 @@ def extract_txt(key):
     presentation = []
     # separate score into presentation and pyschometrics scores
     for score_line in scores:
-        scores_seperated = score_line.split(',')
-        psychometrics.append(scores_seperated[0].replace("Psychometrics: ", "").strip())
-        presentation.append(scores_seperated[1].replace("Presentation: ", "").strip())
+        scores_separated = score_line.split(',')
+        psychometrics.append(scores_separated[0].replace("Psychometrics: ", "").strip())
+        presentation.append(scores_separated[1].replace("Presentation: ", "").strip())
 
     # Find percentage of psychometrics scores and store in list
     psychometrics_score = []
