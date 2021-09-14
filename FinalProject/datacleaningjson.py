@@ -47,7 +47,7 @@ def date_test(name_dates, format, candidate_json):
         date = date.replace('/', '-')
         # try and except loop to stop breaks when key is not found in json
         try:
-            date = datetime.datetime.strptime(date, format).strftime("%Y/%m/%d")
+            date = datetime.datetime.strptime(date, format).strftime("%Y-%m-%d")
             candidate_json[candidate]['date'] = date
             candidate_json[candidate]['applicant_day_date'] = candidate_json[candidate]['date']
             del candidate_json[candidate]['date']
@@ -55,7 +55,7 @@ def date_test(name_dates, format, candidate_json):
             # fixes standard error of too many dashes
              date = date.replace('-', '', 1)
              try:
-                 date = datetime.datetime.strptime(date, format).strftime("%Y/%m/%d")
+                 date = datetime.datetime.strptime(date, format).strftime("%Y-%m-%d")
                  candidate_json[candidate]['date'] = date
                  candidate_json[candidate]['applicant_day_date'] = candidate_json[candidate]['date']
                  del candidate_json[candidate]['date']
@@ -145,16 +145,16 @@ def split_names(df: pd.DataFrame):
                     if sub_name in split_name:
                         split_name = split_name[0:split_name.index(sub_name)]+[" ".join(split_name[split_name.index(sub_name)::])]
 
-        first_name.append(split_name[0])
-        last_name.append(split_name[-1])
+        first_name.append(split_name[0].title())
+        last_name.append(split_name[-1].title())
         if len(split_name) == 2:
             middle_name.append(numpy.nan)
         else:
-            middle_name.append("".join(split_name[1:-1]))
+            middle_name.append("".join(split_name[1:-1]).title())
 
-    df.insert(1, "First Name", first_name, True)
-    df.insert(2, "Middle Name", middle_name, True)
-    df.insert(3, "Last Name", last_name, True)
+    df.insert(1, "first_name", first_name, True)
+    df.insert(2, "middle_name", middle_name, True)
+    df.insert(3, "last_name", last_name, True)
     df.drop(columns="name", inplace=True)
     return df
 
@@ -215,6 +215,13 @@ def table_creator(dict, table_name, index_name):
 
 
 def strengths_candidate_id_creator(json_keys, json, key):
+    """
+    Creates a data frame with one column
+    :param json_keys:
+    :param json:
+    :param key:
+    :return:
+    """
     df_list = []
     for name in json_keys:
         try:
@@ -224,6 +231,13 @@ def strengths_candidate_id_creator(json_keys, json, key):
             pass
     df = pd.DataFrame(df_list, columns=['id','skill'])
     return df
+
+
+def cand_id_gen(scores: pd.DataFrame):
+    scores["candidate_name"] = scores["first_name"]+" "+scores["last_name"] # + " " + scores["applicant_day_date"].map(str)
+    temp = scores[~scores["middle_name"].isna()]
+    scores.loc[~scores["middle_name"].isna(), ["candidate_name"]] = temp["first_name"] + " " + temp["middle_name"] + " " + temp["last_name"] # + " " + temp["applicant_day_date"].map(str)
+    return scores[["candidate_name", "course_interest", "first_name", "middle_name", "last_name", "financial_support_self", "geo_flex", "self_development", "internal_id", "applicant_day_date", "pass"]]
 
 
 yes_no_keys = ['self_development', 'financial_support_self', 'geo_flex']
@@ -260,9 +274,20 @@ for key in list(candidate_json_keys):
 candidate_df = pd.DataFrame(list_obj)
 
 df = split_names(candidate_df)
-
+df = cand_id_gen(df)
 print(df)
+columns = ['candidate_name', 'applicant_day_date']
+joined_df = df.join(generated_id.set_index(columns), on=columns, how='inner')
+print(joined_df)
+
+
 with open('data_clean.json', 'w') as fp:
     json.dump(candidate_json, fp, sort_keys=True, indent=4)
 
+
 df.to_csv('df.csv', index=False)
+
+# joined_df.to_csv('joined_df.csv', index=False)
+
+
+
