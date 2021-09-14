@@ -8,13 +8,19 @@ class ExtractionTests(unittest.TestCase):
 
     # test to check if academy csv files are extracted correctly
     def test_a_academy_csv(self):
-        self.assertEqual(type(self.extracted_csv), list)
-        self.assertEqual(type(self.extracted_csv[0][1]), pd.DataFrame)
-        self.assertEqual(self.extracted_csv[3][0], 'Academy/Business_23_2019-05-20.csv')
-        self.assertEqual(len(self.extracted_csv[0][1].columns), 50)
-        self.assertEqual(len(self.extracted_csv[23][1].columns), 62)
-        self.assertEqual(self.extracted_csv[23][0], 'Academy/Engineering_17_2019-02-18.csv')
-        self.assertEqual(len(self.extracted_csv[0][1]), 8)
+        self.assertEqual(type(self.extracted_csv), pd.DataFrame)
+        self.assertEqual(len(self.extracted_csv.columns), 65)
+        self.assertEqual(list(self.extracted_csv.columns)[:7], ['name', 'trainer', 'course_start_date', 'course_name',
+                                                                'course_number', 'Analytic_W1', 'Independent_W1'])
+        self.assertEqual(list(self.extracted_csv['name'])[:8], ['Quintus Penella', 'Simon Murrey', 'Gustaf Lude',
+                                                                'Yolanda Fosse', 'Lynnett Swin', 'Bart Godilington',
+                                                                'Deni Roust', 'Gerhard Mcgrath'])
+        self.assertEqual(list(self.extracted_csv.iloc[21, 3:5]), ['Business', '22'])
+        self.assertEqual(str(self.extracted_csv.iloc[-1, 2]), '2019-12-30')
+        self.assertEqual(len(self.extracted_csv[self.extracted_csv['course_name'] == 'Business']), 121)
+        self.assertEqual(len(self.extracted_csv[self.extracted_csv['course_name'] == 'Data']), 137)
+        self.assertEqual(len(self.extracted_csv[self.extracted_csv['course_name'] == 'Engineering']), 139)
+        self.assertEqual(len(self.extracted_csv), 397)
 
     extracted_txt = extract_txt('Talent/Sparta Day 26 September 2019.txt')
 
@@ -56,8 +62,8 @@ class ExtractionTests(unittest.TestCase):
 
     # test to check if all files are extracted correctly in one function
     def test_e_extract_all(self):
-        self.assertEqual(type(self.extracted_all[0]), list)
-        self.assertEqual(type(self.extracted_all[0][0][1]), pd.DataFrame)
+        self.assertEqual(type(self.extracted_all[0]), pd.DataFrame)
+        self.assertEqual(len(self.extracted_all[0]), 397)
 
         self.assertEqual(type(self.extracted_all[1]), dict)
         self.assertEqual(type(self.extracted_all[1]['Zsa Zsa Rounsefull 16/07/2019']), dict)
