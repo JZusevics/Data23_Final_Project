@@ -49,14 +49,19 @@ def date_test(name_dates, format, candidate_json):
         try:
             date = datetime.datetime.strptime(date, format).strftime("%Y/%m/%d")
             candidate_json[candidate]['date'] = date
+            candidate_json[candidate]['applicant_day_date'] = candidate_json[candidate]['date']
+            del candidate_json[candidate]['date']
         except ValueError:
             # fixes standard error of too many dashes
              date = date.replace('-', '', 1)
              try:
                  date = datetime.datetime.strptime(date, format).strftime("%Y/%m/%d")
                  candidate_json[candidate]['date'] = date
+                 candidate_json[candidate]['applicant_day_date'] = candidate_json[candidate]['date']
+                 del candidate_json[candidate]['date']
              except ValueError:
                 print("Value error date ", date, " not in correct format")
+
     return candidate_json
 
 
