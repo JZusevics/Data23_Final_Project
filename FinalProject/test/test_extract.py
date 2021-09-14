@@ -1,8 +1,8 @@
 import unittest
-from FinalProject.app.extract_functions.extract_academy_csv import *
-from FinalProject.app.extract_functions.extract_talent_txt import *
-from FinalProject.app.extract_functions.extract_talent_json import *
-from FinalProject.app.extract_functions.extract_talent_csv import *
+from FinalProject.app.extract.extract_academy_csv import *
+from FinalProject.app.extract.extract_talent_txt import *
+from FinalProject.app.extract.extract_talent_json import *
+from FinalProject.app.extract.extract_talent_csv import *
 
 class ExtractionTests(unittest.TestCase):
 
