@@ -85,3 +85,16 @@ def talent_csv_column_names_erd(df):
     df.pop("invited_by")
 
     return df
+
+# we need to create unique candidate ids for each person
+def talent_csv_id_gen(df):
+    """
+    
+    :param df: dataframe generated from the extraction stage of the ETL pipeline
+    :return: dataframe with candidate_ids
+    """
+    y = len(df)
+    # generating new id for all - need to start from 1 
+    df["candidate_id"] = range(1, y + 1)
+    
+    return df
