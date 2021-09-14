@@ -27,7 +27,7 @@ def extract_academy_csv():
         df = pd.read_csv(s3_object['Body'])
         # from the csv file title, we extract course dates and names
         # add these as a column in the dataframe
-        df.insert(2, 'course_date', object['Key'].split(".")[0].split("_")[2])
+        df.insert(2, 'course_start_date', object['Key'].split(".")[0].split("_")[2])
         df.insert(3, 'course_name', object['Key'].split("/")[1].split(".")[0].split("_")[0])
         df.insert(4, 'course_number', object['Key'].split("/")[1].split(".")[0].split("_")[1])
         # store dataframes in a list
