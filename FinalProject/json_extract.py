@@ -5,13 +5,13 @@ from ast import literal_eval
 from datetime import datetime
 import json
 
+
 #connect to s3
 s3_client = boto3.client('s3')
 bucket_name = 'data23-finalproject-2'
 
 def extract_json(key, dictionaries):
-    f"""
-    
+    """
     :param key: Selects s3 key to extract
     :param dictionaries: Initially empty dictionary to have json files appended to
     :return: dictionary of json names and files {"name_and_date": "json"}
@@ -27,6 +27,7 @@ def extract_json(key, dictionaries):
     dictionaries[name_and_date] = dict
     return dictionaries
 
+
 def extract_just_json(bucket_name):
     """
     This file is the final function to allow for the exctraction of just json files from the s3 bucket
@@ -34,16 +35,17 @@ def extract_just_json(bucket_name):
     :param bucket_name: The location of the s3 bucket
     :return: A dictionary of json files and names for conversion into a json file
     """
+    empty_dicts = {}
     paginator = s3_client.get_paginator('list_objects_v2')
     pages = paginator.paginate(Bucket=bucket_name, Prefix='Talent')
-    empty_dicts = {}
     for page in pages:
         for obj in page['Contents']:
             if 'json' in obj['Key']:
                 extracted_dicts = extract_json(obj['Key'], empty_dicts)
-        return extracted_dicts
+    return extracted_dicts
 
 x = extract_just_json(bucket_name)
+
 # saves json onto local machine
 with open('data.json', 'w') as fp:
     json.dump(x, fp, sort_keys=True, indent=4)
