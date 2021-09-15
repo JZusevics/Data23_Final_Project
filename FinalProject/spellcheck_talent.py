@@ -1,6 +1,6 @@
 import pandas as pd
 
-def invited_spelling(df: pd.DataFrame):
+def invited_spelling_talent(df: pd.DataFrame):
     """
     
     :param df: csv dataframe generated from the extraction stage of the ETL pipeline
