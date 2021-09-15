@@ -1,12 +1,11 @@
-from Data23_Final_Project.definitions import PROJECT_ROOT_DIR
+from definitions import PROJECT_ROOT_DIR
 import configparser
 import os
 import boto3
 import pandas as pd
-from datetime import datetime
 from ast import literal_eval
-import json
-
+import datetime
+import numpy
 # Parser
 _config = configparser.ConfigParser()
 

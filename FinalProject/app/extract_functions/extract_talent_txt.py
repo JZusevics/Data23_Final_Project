@@ -1,4 +1,4 @@
-from Data23_Final_Project.FinalProject.config_manager import *
+from FinalProject.config_manager import *
 
 
 # Extracts all TXT data from the specified object and returns it in a DATA FRAME
@@ -17,7 +17,7 @@ def extract_txt(key):
     # separate date, location and candidate info in lists
     lines = text_file.splitlines()
     # Store date in date format
-    date = datetime.strptime(lines[0], "%A %d %B %Y").date()
+    date =  datetime.datetime.strptime(lines[0], "%A %d %B %Y").date()
     location = lines[1]
     # from 3rd line data has name, psychometrics and presentation scores
     candidate_data = lines[3:]
