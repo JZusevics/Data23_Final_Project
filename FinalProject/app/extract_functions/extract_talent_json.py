@@ -35,7 +35,7 @@ def extract_just_json(bucket_name):
         for obj in page['Contents']:
             if 'json' in obj['Key']:
                 extracted_dicts = extract_json(obj['Key'], empty_dicts)
-        return extracted_dicts
+    return extracted_dicts
 
 
 # For testing and data exploration

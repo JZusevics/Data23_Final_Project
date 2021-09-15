@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 
 def talent_csv_invite_date(df):  # dealing with the invitation date
@@ -18,7 +19,7 @@ def talent_csv_invite_date(df):  # dealing with the invitation date
     df["sliced_month"] = df.split_month.str.slice(stop=3).str.title()
     # combining the columns to form the date
     df["applicant_day_date"] = df.split_year + "-" + df.sliced_month + "-" + df.split_date
-    df["applicant_day_date"] = pd.to_datetime(df["applicant_day_date"], format='%Y-%b-%d')
+    df["applicant_day_date"] = pd.to_datetime(df["applicant_day_date"], format='%Y-%b-%d').dt.date
     df.applicant_day_date.replace("NaT", np.nan, inplace=True)
     # pop out any unwanted columns
     df.pop("dot")
@@ -40,7 +41,7 @@ def talent_csv_dob(df):
     :param df: dataframe generated from the extraction stage of the ETL pipeline
     :return: SQL formal of date of birth
     """
-    df["dob"] = pd.to_datetime(df["dob"], format='%d/%m/%Y')  # use datetime to change format
+    df["dob"] = pd.to_datetime(df["dob"], format='%d/%m/%Y').dt.date  # use datetime to change format
     df["date_of_birth"] = df.dob  # change name for consistency
     df.pop("dob")
 
@@ -58,7 +59,7 @@ def talent_csv_phone(df):
     # getting rid of characters that are unwanted
     df.phone_number = df.phone_number.str.replace("(", "").str.replace(")", "").str.replace(" ", "-").str.replace("-", "")
     # turning missing data into nan
-    df.phone_number.replace("", None, inplace=True)
+    df.phone_number.replace("", np.nan, inplace=True)
 
     return df
 
