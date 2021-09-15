@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def cand_id_gen_txt(scores: pd.DataFrame):
-    scores["candidate_id_str"] = scores["first_name"]+" "+scores["last_name"] + " " + scores["date"].map(str)
+    scores["candidate_id_str"] = scores["first_name"]+" "+scores["last_name"] + " " + scores["date"].map(lambda x: str(x.date()))
     temp = scores[~scores["middle_name"].isnull()]
     scores.loc[~scores["middle_name"].isna(), ["candidate_id_str"]] = temp["first_name"] + " " + temp["middle_name"] + " " + temp["last_name"] + " " + temp["date"].map(str)
     scores['candidate_name'] = scores['candidate_id_str'].map(lambda x: x[:-11])
