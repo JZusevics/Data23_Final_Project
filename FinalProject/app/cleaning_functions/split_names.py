@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy
+import numpy as np
 
 
 def split_names(df: pd.DataFrame):
@@ -34,7 +34,7 @@ def split_names(df: pd.DataFrame):
         first_name.append(split_name[0].title())
         last_name.append(split_name[-1].title())
         if len(split_name) == 2:
-            middle_name.append(numpy.nan)
+            middle_name.append(np.nan)
         else:
             middle_name.append("".join(split_name[1:-1]).title())
 
