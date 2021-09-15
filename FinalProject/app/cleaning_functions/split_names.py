@@ -15,8 +15,8 @@ def split_names(df: pd.DataFrame):
     for name in df["name"]:
         # Split names on spaces
         split_name = name.split()
-        for index, name in enumerate(split_name):
-            split_name[index] = name.title()
+        for index, sub_name in enumerate(split_name):
+            split_name[index] = sub_name.title()
         # If more than 2 names
         if len(split_name) > 2:
             # If the first name and second name are the same put them together
@@ -27,7 +27,7 @@ def split_names(df: pd.DataFrame):
                 if sub_name in split_name:
                     # Check if prefix is in the first name only put first and second together
                     if split_name.index(sub_name) == 0:
-                        split_name = ["".join(split_name[split_name.index(sub_name):2])]+ split_name[2::]
+                        split_name = ["".join(split_name[split_name.index(sub_name):2])] + split_name[2::]
                     if sub_name in split_name:
                         split_name = split_name[0:split_name.index(sub_name)]+[" ".join(split_name[split_name.index(sub_name)::])]
 
