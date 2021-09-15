@@ -9,3 +9,4 @@ def cand_id_gen_txt(scores: pd.DataFrame):
     scores = scores[["candidate_id_str", "candidate_name", "first_name", "middle_name", "last_name", "psychometrics_score", "presentation_score", "date", "location"]]
     scores.rename(columns={'date': 'applicant_day_date'}, inplace=True)
     return scores
+
