@@ -7,6 +7,7 @@ from datetime import datetime
 from ast import literal_eval
 import json
 import pyodbc
+import numpy
 
 # Parser
 _config = configparser.ConfigParser()
