@@ -7,8 +7,9 @@ from pprint import pprint
 extracted = extract_all()
 
 # clean all files
-academy_csv, talent_txt, talent_csv = clean_all_files(extracted)
+academy_csv, talent_json, talent_txt, talent_csv, json_skill_tables = clean_all_files(extracted)
 
 academy_csv.to_csv('transformed_academy_csv.csv')
+talent_json.to_csv('transformed_talent_json.csv')
 talent_txt.to_csv('transformed_talent_txt.csv')
 talent_csv.to_csv('transformed_talent_csv.csv')
