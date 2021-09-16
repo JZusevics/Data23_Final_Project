@@ -1,8 +1,7 @@
-from FinalProject.config_manager import *
 from FinalProject.app.extract.extract_academy_csv import *
-from FinalProject.app.extract.extract_talent_txt import *
-from FinalProject.app.extract.extract_talent_json import *
 from FinalProject.app.extract.extract_talent_csv import *
+from FinalProject.app.extract.extract_talent_json import *
+from FinalProject.app.extract.extract_talent_txt import *
 
 
 def extract_all(extracted_list: list):
@@ -17,10 +16,12 @@ def extract_all(extracted_list: list):
     extracted_dicts = {}
 
     # call in the academy csv extract function
+    print('Academy extracting...')
     academy_csv_df = extract_academy_csv(extracted_list)
+    print('Academy extracted')
 
     # Extract all data from the Talent bucket
-
+    print('Talent extracting...')
     for page in TALENT_PAGES:
         for obj in page['Contents']:
             if obj['Key'] not in extracted_list:
@@ -33,4 +34,5 @@ def extract_all(extracted_list: list):
                 elif 'csv' in obj['Key']:
                     csv_df.append(extract_csv(obj['Key']))
                     extracted_list.append(obj['Key'])
+    print('Talent extracted')
     return academy_csv_df, extracted_dicts, pd.concat(scores_df), pd.concat(csv_df)
