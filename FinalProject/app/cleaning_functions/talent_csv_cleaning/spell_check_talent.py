@@ -7,5 +7,5 @@ def spelling_clean_talent(df: pd.DataFrame):
     :return: dataframe with correct spelling
     """
     df.invited_by_name.replace("Fifi Eton", "Fifi Etton", inplace=True)
-    df.invited_by_name.replace("Belbrook", "Bellbrook", inplace=True)
+    df.invited_by_name.replace("Bruno Belbrook", "Bruno Bellbrook", inplace=True)
     return df

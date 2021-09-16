@@ -10,7 +10,8 @@ def split_names(df: pd.DataFrame):
 
     df["name"] = df['name'].str.replace(" '", "'")
     df["name"] = df['name'].str.replace("' ", "'")
-    df["name"] = df['name'].str.replace(" - ", "'")
+    df["name"] = df['name'].str.replace(" -", "-")
+    df["name"] = df['name'].str.replace("- ", "-")
 
     for name in df["name"]:
         # Split names on spaces
