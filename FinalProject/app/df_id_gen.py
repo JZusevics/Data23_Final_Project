@@ -12,6 +12,22 @@ def id_generator(academy_csv):
 
 
 def trainer_inviter_table_creator(academy_performance, talent):
-    inviter = talent['invited_by']
-    inviter['invited_by_id'] = inviter.index
-    inter.rename(columnse={'invited_by':})
+
+    inviter = talent['invited_by_name'].dropna().unique()
+    inviter = pd.DataFrame(inviter)
+    inviter['inviter_id'] = inviter.index
+    inviter = inviter.rename(columns={0:'invited_by_name'})
+    inviter = inviter[['inviter_id', 'invited_by_name']]
+    talent = talent.merge(inviter, on='invited_by_name', how='left')
+    talent.pop('invited_by_name')
+
+    trainer = academy_performance['trainer'].dropna().unique()
+    trainer = pd.DataFrame(trainer)
+    trainer = trainer.rename(columns={0: 'trainer'})
+    trainer['trainer_id'] = trainer.index
+    academy_performance = academy_performance.merge(trainer, on='trainer', how='left')
+    trainer = trainer.rename(columns={'trainer': 'trainer_name'})
+    trainer = trainer[['trainer_id', 'trainer_name']]
+    academy_performance.pop('trainer')
+
+    return inviter, talent, trainer, academy_performance

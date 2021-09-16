@@ -1,6 +1,7 @@
 from Data23_Final_Project.FinalProject.app.cleaning_functions.clean_all_files import *
 from Data23_Final_Project.FinalProject.app.extract_functions.extract_all import *
 from pprint import pprint
+import tables_sparta_day
 import df_id_gen
 import vrindas_join_functions
 import df_id_append
@@ -36,3 +37,7 @@ talent_json_merge.to_csv('transformed_academy_csv.csv')
 
 strength_junc, weakness_junc, tech_self_score = df_id_append.id_replace_call(json_skill_tables, talent_json_merge)
 talent_academy_merge, course_junc, course_info = df_id_gen.id_generator(talent_academy_merge)
+inviter, talent_csv, trainer, academy_performance = df_id_gen.trainer_inviter_table_creator(academy_csv, talent_csv)
+
+sparta_day, applicant_day_date, test_location, talent_txt_merge = tables_sparta_day.sparta_day_extract(talent_txt_merge)
+
