@@ -14,13 +14,13 @@ def talent_csv_invite_date(df):  # dealing with the invitation date
     # splits month column into split_month and split_year - adds at end of df
     df[["split_month", "split_year"]] = df.month.str.split(" ", 1, expand=True)
     # sets any NaN that was converted to string back to NaN format
-    df.split_date.replace("nan", None, inplace=True)
+    df.split_date.replace("nan", None, inplace=True, regex=False)
     # keeps only first 3 characters from the months & converts to title format for datetime
     df["sliced_month"] = df.split_month.str.slice(stop=3).str.title()
     # combining the columns to form the date
     df["applicant_day_date"] = df.split_year + "-" + df.sliced_month + "-" + df.split_date
     df["applicant_day_date"] = pd.to_datetime(df["applicant_day_date"], format='%Y-%b-%d').dt.date
-    df.applicant_day_date.replace("NaT", np.nan, inplace=True)
+    df.applicant_day_date.replace("NaT", np.nan, inplace=True, regex=False)
     # pop out any unwanted columns
     df.pop("dot")
     df.pop("date_int")
@@ -57,9 +57,9 @@ def talent_csv_phone(df):
     # fill na to make workable
     df.phone_number = df.phone_number.fillna('')
     # getting rid of characters that are unwanted
-    df.phone_number = df.phone_number.str.replace("(", "").str.replace(")", "").str.replace(" ", "-").str.replace("-", "")
+    df.phone_number = df.phone_number.str.replace("(", "", regex=False).str.replace(")", "", regex=False).str.replace(" ", "-", regex=False).str.replace("-", "", regex=False)
     # turning missing data into nan
-    df.phone_number.replace("", np.nan, inplace=True)
+    df.phone_number.replace("", np.nan, inplace=True, regex=False)
 
     return df
 
@@ -83,7 +83,7 @@ def talent_csv_column_names_erd(df):
     df["invited_by_name"] = df.invited_by.astype(str)
     df.pop("invited_by")
 
-    df.replace('nan', np.nan, inplace=True)
+    df.replace('nan', np.nan, inplace=True, regex=False)
 
     return df
 

@@ -56,14 +56,15 @@ def tech_skill_id_generator(name_dates, skill, candidate_json):
     return strengths_id
 
 
-def table_creator(dict, table_name, index_name):
+def table_creator(my_dict, column_name, index_id_name):
     """
     turns table dictionaries into data frames
     """
-    dataframe = pd.Series(dict, name=table_name)
-    dataframe.index.name = index_name
-    dataframe.reset_index()
-    dataframe = pd.DataFrame(dataframe)
+    dataframe = pd.DataFrame(list(my_dict.items()), columns=[index_id_name, column_name])
+    # dataframe.reset_index()
+    # dataframe = pd.DataFrame(dataframe)
+    # dataframe[index_id_name] = dataframe.index
+    # dataframe = dataframe[[index_id_name, column_name]]
     return dataframe
 
 
@@ -75,7 +76,7 @@ def skill_id(candidate_json_keys, candidate_json):
     strength_id = skill_id_generator(candidate_json_keys, 'strengths', candidate_json)
     weakness_id = skill_id_generator(candidate_json_keys, 'weaknesses', candidate_json)
     tech_skill_id = tech_skill_id_generator(candidate_json_keys, 'tech_self_score', candidate_json)
-    strength_df = table_creator(strength_id, 'strength_ids_df', 'strength_id')
-    weakness_df = table_creator(weakness_id, 'weakness_ids_df', 'weakness_id')
-    tech_skill_df = table_creator(tech_skill_id, 'tech_skill_ids_df', 'tech_skill_id')
+    strength_df = table_creator(strength_id, 'strength_id', 'strength_id')
+    weakness_df = table_creator(weakness_id, 'weakness_id', 'weakness_id')
+    tech_skill_df = table_creator(tech_skill_id, 'tech_skill_id', 'tech_skill_id')
     return strength_df, weakness_df, tech_skill_df

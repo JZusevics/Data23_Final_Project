@@ -8,7 +8,7 @@ def id_replace_call(json_skill_tables, talent_json_merge):
 def id_replace(skill_df, large_df):
 
     skill_df = skill_df.set_index('internal_id').join(large_df.set_index('internal_id'))
-    skilL_df = skill_df[['candidate_id', 'skill_id' ]]
+    skilL_df = skill_df[['candidate_id', 'skill_id']]
     return skilL_df
 
 def id_replace_skill(skill_df, large_df):

@@ -1,9 +1,12 @@
+import pandas as pd
+
 from Data23_Final_Project.FinalProject.app.cleaning_functions.talent_csv_cleaning.clean_all_talent_csv import *
 from Data23_Final_Project.FinalProject.app.cleaning_functions.talent_txt_cleaning.clean_all_txt import *
 from Data23_Final_Project.FinalProject.app.cleaning_functions.academy_csv_cleaning.clean_all_academy_csv import *
 from Data23_Final_Project.FinalProject.app.cleaning_functions.id_into_txt import *
 from Data23_Final_Project.FinalProject.app.cleaning_functions.talent_json_cleaning.json_cleaning_main import *
-
+# hi Paula please ignore :)
+pd.options.mode.chained_assignment=None
 
 def clean_all_files(extracted: list):
 

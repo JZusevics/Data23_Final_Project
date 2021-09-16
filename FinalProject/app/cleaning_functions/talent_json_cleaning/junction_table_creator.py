@@ -16,7 +16,7 @@ def strengths_candidate_id_creator(json_keys, json, key):
                 df_list.append([json[name]['internal_id'], item])
         except KeyError:
             pass
-    df = pd.DataFrame(df_list, columns=['id', 'skill'])
+    df = pd.DataFrame(df_list, columns=['internal_id', 'skill_id'])
     return df
 
 
@@ -35,7 +35,7 @@ def tech_candidate_id_creator(json_keys, json, key):
                 df_list.append([json[name]['internal_id'], item, json[name][key][item]])
         except KeyError:
             pass
-    df = pd.DataFrame(df_list, columns=['id', 'skill', 'score'])
+    df = pd.DataFrame(df_list, columns=['internal_id', 'skill_id', 'score'])
     return df
 
 
