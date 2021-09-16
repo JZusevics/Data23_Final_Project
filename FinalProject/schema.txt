@@ -1,20 +1,3 @@
-DROP TABLE IF EXISTS TestTable
-CREATE TABLE TestTable (
-    id INT NOT NULL,
-    name VARCHAR (50),
-    gender VARCHAR (50),
-    dob VARCHAR (50),
-    email VARCHAR (50),
-    city VARCHAR (50),
-    address VARCHAR (500),
-    postcode VARCHAR (50),
-    phone_number VARCHAR (50),
-    uni VARCHAR (500),
-    degree VARCHAR (500),
-    invited_date FLOAT (53),
-    month VARCHAR (50),
-    invited_by VARCHAR (50)
-    )
 DROP TABLE IF EXISTS strength_junc
 CREATE TABLE strength_junc (
     candidate_id INT NOT NULL,
@@ -56,16 +39,16 @@ CREATE TABLE academy_performance (
 DROP TABLE IF EXISTS sparta_skill
 CREATE TABLE sparta_skill (
     sparta_skill_id INT NOT NULL,
-    skill_name VARCHAR NOT NULL
+    skill_name VARCHAR (50) NOT NULL
     )
 DROP TABLE IF EXISTS sparta_day_performance
 CREATE TABLE sparta_day_performance (
     candidate_id INT NOT NULL,
-    sparta_day_id INT NOT NULL,
+    day_id INT NOT NULL,
     psychometric_score FLOAT (50) NOT NULL,
-    presentation FLOAT (50) NOT NULL,
-    financial_support FLOAT (50) NOT NULL,
-    result BIT NOT NULL,
+    presentation_score FLOAT (50) NOT NULL,
+    financial_support_self FLOAT (50) NOT NULL,
+    pass BIT NOT NULL,
     course_interest VARCHAR (50) NOT NULL,
     geo_flex BIT NOT NULL,
     self_development BIT NOT NULL
@@ -78,43 +61,37 @@ CREATE TABLE applicant_day_date (
 DROP TABLE IF EXISTS test_location
 CREATE TABLE test_location (
     location_id INT NOT NULL,
-    location_name VARCHAR NOT NULL
+    location_name VARCHAR (50) NOT NULL
     )
 
-DROP TABLE IF EXISTS inviters
-CREATE TABLE inviters (
+DROP TABLE IF EXISTS inviter
+CREATE TABLE inviter (
     invited_by_id INT NOT NULL,
-    invited_by_name VARCHAR NOT NULL
+    invited_by_name VARCHAR (50) NOT NULL
     )
 DROP TABLE IF EXISTS trainer
 CREATE TABLE trainer (
     trainer_id INT NOT NULL,
-    trainer_name VARCHAR NOT NULL
-    )
-DROP TABLE IF EXISTS candidate_id_gen
-CREATE TABLE candidate_id_gen (
-    candidate_name VARCHAR (50) NOT NULL,
-    sparta_day_date DATE,
-    candidate_id INT NOT NULL
+    trainer_name VARCHAR (50) NOT NULL
     )
 DROP TABLE IF EXISTS candidate_info
 CREATE TABLE candidate_info (
     candidate_id INT NOT NULL,
-    invited_by_id INT NOT NULL,
-    trainer_id INT NOT NULL,
     applicant_day_trainee_id INT NOT NULL,
+    invited_by_id INT,
+    trainer_id INT,
     first_name VARCHAR (50),
     middle_name VARCHAR (50),
-    last_name VARCHAR (50),
+    last_name VARCHAR (100),
     dob DATE,
     gender VARCHAR (50),
     phone_number VARCHAR (50),
-    university VARCHAR (50),
+    university VARCHAR (100),
     degree VARCHAR (50),
-    address VARCHAR (50),
+    address VARCHAR (100),
     city VARCHAR (50),
     postcode VARCHAR (50),
-    Email VARCHAR (50)
+    email VARCHAR (50)
     )
 DROP TABLE IF EXISTS course_junc
 CREATE TABLE course_junc (
@@ -126,5 +103,12 @@ CREATE TABLE sparta_day (
     sparta_day_id INT NOT NULL,
     applicant_day_date_id INT,
     location_id INT NOT NULL
+    )
+DROP TABLE IF EXISTS course_info
+CREATE TABLE course_info (
+    course_id INT NOT NULL,
+    course_stream VARCHAR (50) NOT NULL,
+    course_no INT NOT NULL,
+    course_start DATE
     )
 

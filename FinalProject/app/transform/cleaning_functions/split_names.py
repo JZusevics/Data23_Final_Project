@@ -1,12 +1,8 @@
-from FinalProject.config_manager import *
+import numpy as np
+import pandas as pd
 
 
 def split_names(df: pd.DataFrame):
-    """
-    :param df: A dataframe which name column will be transformed
-    :return: df: Returns the df with the transformed collumns
-    """
-    # create variables
     last_name_prefix = ["Van", "Le", "Di", "O", "De", "Du", "Von", "St", "Mc", "Mac", "La"]
     first_name = []
     middle_name = []
@@ -14,13 +10,14 @@ def split_names(df: pd.DataFrame):
 
     df["name"] = df['name'].str.replace(" '", "'")
     df["name"] = df['name'].str.replace("' ", "'")
-    df["name"] = df['name'].str.replace(" - ", "'")
+    df["name"] = df['name'].str.replace(" -", "-")
+    df["name"] = df['name'].str.replace("- ", "-")
 
     for name in df["name"]:
         # Split names on spaces
         split_name = name.split()
-        for index, name in enumerate(split_name):
-            split_name[index] = name.title()
+        for index, sub_name in enumerate(split_name):
+            split_name[index] = sub_name.title()
         # If more than 2 names
         if len(split_name) > 2:
             # If the first name and second name are the same put them together
@@ -39,7 +36,7 @@ def split_names(df: pd.DataFrame):
         first_name.append(split_name[0].title())
         last_name.append(split_name[-1].title())
         if len(split_name) == 2:
-            middle_name.append(numpy.nan)
+            middle_name.append(np.nan)
         else:
             middle_name.append("".join(split_name[1:-1]).title())
 

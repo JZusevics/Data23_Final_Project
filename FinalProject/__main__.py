@@ -1,14 +1,17 @@
-from FinalProject.app.transform.clean_json import clean_json
-from FinalProject.app.load.schema_functions import *
-from FinalProject.app.load.loading_functions import *
+from FinalProject.app.transform.save_cleaned_files import *
 
 if __name__ == '__main__':
 
-    reset_schema()
-    #extract_just_json()
-    strengths_junc_df, weakness_junc_df, tech_self_score_df = clean_json()
-    print(tech_self_score_df)
-    load_strength(strengths_junc_df)
-    load_weakness(weakness_junc_df)
-    load_tech_skill(tech_self_score_df)
+    reset_schema('schema.txt')
+
+    # with open('data.json') as f:
+    #     extracted1 = json.loads(f.read())
+    # extracted0 = pd.read_csv('academy.csv')
+    # extracted2 = pd.read_csv('txt.csv')
+    # extracted3 = pd.read_csv('talent.csv')
+    # extracted = [extracted0, extracted1, extracted2, extracted3]
+
+    extracted_list = []
+    extracted = extract_all(extracted_list)
+    clean_and_load(extracted)
     pass;

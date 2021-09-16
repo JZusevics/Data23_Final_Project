@@ -1,30 +1,25 @@
-import json
 import datetime
+import json
+
 import numpy
 import pandas as pd
-import os
-import csv
+
 
 def clean_json():
     # fname = os.path.join("connor.csv")
     # generated_id = pd.read_csv(fname)
 
-    desired_width=320
+    desired_width = 320
     pd.set_option('display.width', desired_width)
-    numpy .set_printoptions(linewidth=desired_width)
-    pd.set_option('display.max_columns',10)
+    numpy.set_printoptions(linewidth=desired_width)
+    pd.set_option('display.max_columns', 10)
 
     f = open('talent_json_data.json')
     candidate_json = json.load(f)
 
-
-
-
-
     yes_no_keys = ['self_development', 'financial_support_self', 'geo_flex']
     candidate_json_keys = candidate_json.keys()
     date_format = "%d-%m-%Y"
-
 
     internal_id_append(candidate_json_keys, candidate_json)
     candidate_json = name_strip(candidate_json_keys, candidate_json)
@@ -37,14 +32,13 @@ def clean_json():
     strength_ids_df = table_creator(strengths_id, 'strength_ids', 'Strength_id')
     weakness_ids_df = table_creator(weakness_id, 'weakness_ids_df', 'weakness_id')
     tech_skill_ids_df = table_creator(tech_skill_id, 'tech_skill_ids_df', 'tech_skill_id')
-    strength_table= strengths_candidate_id_creator(candidate_json_keys, candidate_json, 'strengths')
-    weaknesses_table = strengths_candidate_id_creator(candidate_json_keys, candidate_json,'tech_self_score')
-    tech_skill_table = strengths_candidate_id_creator(candidate_json_keys, candidate_json,'weaknesses')
-
+    strength_table = strengths_candidate_id_creator(candidate_json_keys, candidate_json, 'strengths')
+    weaknesses_table = strengths_candidate_id_creator(candidate_json_keys, candidate_json, 'tech_self_score')
+    tech_skill_table = strengths_candidate_id_creator(candidate_json_keys, candidate_json, 'weaknesses')
 
     list_obj = []
     for key in list(candidate_json_keys):
-        #print(candidate_json[name])
+        # print(candidate_json[name])
         del candidate_json[key]['strengths']
         del candidate_json[key]['weaknesses']
         try:
@@ -64,6 +58,7 @@ def clean_json():
 
     return strength_ids_df, weakness_ids_df, tech_skill_ids_df,
 
+
 def internal_id_append(json_keys, json):
     """
     This Creates an internal id for creation of data frame, so that all data can be referenced and have a new id assigned
@@ -76,6 +71,7 @@ def internal_id_append(json_keys, json):
         json[name]['internal_id'] = candidate_id
         candidate_id += 1
     return json
+
 
 def date_test(name_dates, format, candidate_json):
     """
@@ -109,6 +105,7 @@ def date_test(name_dates, format, candidate_json):
 
     return candidate_json
 
+
 def bool_fix(name_dates, candidate_json, yes_no_key):
     """
     Test that bool the three boolean key date pairs of financial_support_self, geo_flex and self_development are true
@@ -128,6 +125,7 @@ def bool_fix(name_dates, candidate_json, yes_no_key):
                 # returns incorrect data for error exploration
                 print(test)
     return candidate_json
+
 
 def results_fix(name_dates, candidate_json):
     """
@@ -149,6 +147,7 @@ def results_fix(name_dates, candidate_json):
             print(test)
     return candidate_json
 
+
 def name_strip(name_dates, candidate_json):
     """
     Strips white space off of names, might not be nesaccary
@@ -162,6 +161,7 @@ def name_strip(name_dates, candidate_json):
         # if str(candidate_json[candidate]['name']).strip().lower().title().count(' ') > 1:
         # print(str(candidate_json[candidate]['name']).strip().lower().title())
     return candidate_json
+
 
 def split_names(df: pd.DataFrame):
     last_name_prefix = ["Van", "Le", "Di", "O", "De", "Du", "Von", "St", "Mc", "Mac", "La"]
@@ -200,6 +200,7 @@ def split_names(df: pd.DataFrame):
     df.drop(columns="name", inplace=True)
     return df
 
+
 def skill_id_generator(name_dates, skill, candidate_json):
     list_strengths = []
     for candidate in name_dates:
@@ -219,6 +220,7 @@ def skill_id_generator(name_dates, skill, candidate_json):
             candidate_json[candidate][skill][i] = id
     strengths_id = {value: key for key, value in strengths_id.items()}
     return strengths_id
+
 
 def tech_skill_id_generator(name_dates, skill, candidate_json):
     list_strengths = []
@@ -247,12 +249,14 @@ def tech_skill_id_generator(name_dates, skill, candidate_json):
     strengths_id = {value: key for key, value in strengths_id.items()}
     return strengths_id
 
+
 def table_creator(dict, table_name, index_name):
     dataframe = pd.Series(dict, name=table_name)
     dataframe.index.name = index_name
     dataframe.reset_index()
     dataframe = pd.DataFrame(dataframe)
     return dataframe
+
 
 def strengths_candidate_id_creator(json_keys, json, key):
     df_list = []

@@ -1,9 +1,9 @@
 import unittest
+
 from FinalProject.app.extract.extract_all import *
 
 
 class ExtractionTests(unittest.TestCase):
-
     list1 = []
     extracted_csv = extract_academy_csv(list1)
 
@@ -59,7 +59,7 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(len(self.extracted_talent_csv_2), 372)
         self.assertEqual(len(self.extracted_talent_csv_2.columns), 14)
 
-    list2 =[]
+    list2 = []
     extracted_all = extract_all(list2)
 
     # test to check if all files are extracted correctly in one function
@@ -69,12 +69,12 @@ class ExtractionTests(unittest.TestCase):
 
         self.assertEqual(type(self.extracted_all[1]), dict)
         self.assertEqual(type(self.extracted_all[1]['Zsa Zsa Rounsefull 16/07/2019']), dict)
-        self.assertEqual(len(list(self.extracted_all[1].values())), 3105-32)  # 32 duplicate data
+        self.assertEqual(len(list(self.extracted_all[1].values())), 3105 - 32)  # 32 duplicate data
 
         self.assertEqual(type(self.extracted_all[2]), pd.DataFrame)
         self.assertEqual(len(self.extracted_all[2].columns), 5)
         self.assertEqual(list(self.extracted_all[2].columns), ['name', 'psychometrics_score',
-                                                            'presentation_score', 'date', 'location'])
+                                                               'presentation_score', 'date', 'location'])
         csv_count = 0
         txt_count = 0
         for page in TALENT_PAGES:
@@ -89,6 +89,6 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(type(self.extracted_all[3]), pd.DataFrame)
         self.assertEqual(len(self.extracted_all[3].columns), 14)
         self.assertEqual(list(self.extracted_all[3].columns), ['id', 'name', 'gender', 'dob', 'email', 'city',
-                                                                   'address', 'postcode', 'phone_number', 'uni',
-                                                                   'degree', 'invited_date', 'month', 'invited_by'])
+                                                               'address', 'postcode', 'phone_number', 'uni',
+                                                               'degree', 'invited_date', 'month', 'invited_by'])
         self.assertEqual(len(self.extracted_all[3]), 4691)

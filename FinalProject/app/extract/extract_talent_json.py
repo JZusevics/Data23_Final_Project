@@ -1,5 +1,6 @@
 from FinalProject.config_manager import *
 
+
 # Extracts all the JSON data from the specified object and returns it in a dictionary
 def extract_json(key, dictionaries):
     """
@@ -19,7 +20,7 @@ def extract_json(key, dictionaries):
     # Extract and assign name + date as key for each json file
     name_and_date = dict["name"] + " " + dict["date"]
     dictionaries[name_and_date] = dict
-    return dictionaries ## return dictionary
+    return dictionaries  ## return dictionary
 
 
 ## TESTING CODE

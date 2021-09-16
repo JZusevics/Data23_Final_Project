@@ -1,4 +1,3 @@
-from FinalProject.config_manager import *
 from FinalProject.app.extract.extract_talent_csv import *
 
 
@@ -11,93 +10,93 @@ def load_candidate_id_gen(df):
             "values(?,?,?)",
             row.candidate_name, row.sparta_day_date, row.candidate_id)
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* CANDIDATE INFO **********
 def load_candidate_info(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (candidate_id, invited_by_id, trainer_id, application_day_trainee_id, first_name, "
+            "INSERT INTO candidate_info (candidate_id, applicant_day_trainee_id, invited_by_id, trainer_id, first_name, "
             "middle_name, last_name, dob, gender, phone_number, university, degree, address, city, postcode, email) "
             "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            row.candidate_id, row.invited_by_id, row.trainer_id, row.application_day_trainee_id, row.first_name,
-            row.middle_name, row.last_name, row.dob, row.gender, row.phone_number, row.university, row.degree,
-            row.address, row.city, row.postcode, row.email,)
+            int(row.candidate_id), int(row.applicant_day_trainee_id), row.inviter_id, row.trainer_id, row.first_name,
+            row.middle_name, row.last_name, row.date_of_birth, row.gender, row.phone_number, row.university, row.degree,
+            row.address, row.city, row.postcode, row.email)
     CNXN.commit()
-    CURSOR.close()
+
 
 
 def load_inviter(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (invited_by_id, invited_by_name) "
+            "INSERT INTO inviter (invited_by_id, invited_by_name) "
             "values(?,?)",
-            row.invited_by_id, row.invited_by_name)
+            row[0], row[1])
     CNXN.commit()
-    CURSOR.close()
+
 
 
 def load_trainer(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (trainer_id, trainer_name) "
+            "INSERT INTO trainer (trainer_id, trainer_name) "
             "values(?,?)",
-            row.trainer_id, row.trainer_name)
+            row[0], row[1])
     CNXN.commit()
-    CURSOR.close()
+
+
 
 def load_course_junc(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (candidate_id, course_id) "
+            "INSERT INTO course_junc (candidate_id, course_id) "
             "values(?,?)",
-            row.candidate_id, row.course_id)
+            int(row[0]), int(row[1]))
     CNXN.commit()
-    CURSOR.close()
+
+
 
 def load_course_info(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (course_id, course_stream, course_no, course_start) "
+            "INSERT INTO course_info (course_id, course_stream, course_no, course_start) "
             "values(?,?,?,?)",
-            row.course_id, row.course_stream, row.course_no, row.course_start)
+            int(row.course_id), row.course_name, int(row.course_number), row.course_start_date)
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* ACADEMY DAY **********
 def load_academy_performance(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (candidate_id, week, sparta_skill_id, score) "
+            "INSERT INTO academy_performance (candidate_id, week, sparta_skill_id, score) "
             "values(?,?,?,?)",
-            row.candidate_name, row.sparta_day_date, row.candidate_id, row.score)
+            int(row.candidate_id), int(row.week), int(row.sparta_skill_id), int(row.score))
     CNXN.commit()
-    CURSOR.close()
+
 
 
 def load_sparta_skill(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (sparta_skill_id, skill_name) "
+            "INSERT INTO sparta_skill (sparta_skill_id, skill_name) "
             "values(?,?)",
             row.sparta_skill_id, row.skill_name)
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* STRENGTH **********
 def load_strength(df):
     for index, row in df.iterrows():
-        print(row.name, row['strength_ids'])
         CURSOR.execute(
             "INSERT INTO strength (strength_id, strength) "
             "values(?,?)",
-            row.name, row['strength_ids'])
+            row[0], row[1])
 
     CNXN.commit()
-    #CURSOR.close()
 
 
 def load_strength_junc(df):
@@ -105,19 +104,18 @@ def load_strength_junc(df):
         CURSOR.execute(
             "INSERT INTO strength_junc (candidate_id, strength_id) "
             "values(?,?)",
-            row.candidate_id, row.strength_id)
+            int(row.candidate_id), int(row[1]))
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* WEAKNESS **********
 def load_weakness(df):
     for index, row in df.iterrows():
-        print(row.name, row['weakness_ids_df'])
         CURSOR.execute(
             "INSERT INTO weakness (weakness_id, weakness) "
             "values(?,?)",
-            row.name, row['weakness_ids_df'])
+            row[0], row[1])
     CNXN.commit()
 
 
@@ -126,9 +124,9 @@ def load_weakness_junc(df):
         CURSOR.execute(
             "INSERT INTO weakness_junc (candidate_id, weakness_id) "
             "values(?,?)",
-            row.candidate_id, row.weakness_id)
+            int(row[0]), int(row[1]))
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* TECH SKILL **********
@@ -137,9 +135,9 @@ def load_tech_self_score(df):
         CURSOR.execute(
             "INSERT INTO tech_self_score (candidate_id, tech_skill_id, score) "
             "values(?,?,?)",
-            row.candidate_id, row.tech_skill_id, row.score)
+            int(row.candidate_id), int(row.skill_id), int(row.score))
     CNXN.commit()
-    CURSOR.close()
+
 
 
 def load_tech_skill(df):
@@ -147,66 +145,54 @@ def load_tech_skill(df):
         CURSOR.execute(
             "INSERT INTO tech_skill (tech_skill_id, skill_name) "
             "values(?,?)",
-            row.name, row['tech_skill_ids_df'])
+            row[0], row[1])
     CNXN.commit()
-    CURSOR.close()
+
 
 
 # ******* SPARTA DAY **********
 def load_sparta_day_performance(df):
     for index, row in df.iterrows():
+        print(index)
         CURSOR.execute(
-            "INSERT INTO TestTable (candidate_id, sparta_day_id, psychometric_score, presentation_score, "
-            "financial_support, result, course_interest, geo_felx, self_development) "
+            "INSERT INTO TestTable (candidate_id, day_id, psychometric_score, presentation_score, "
+            "financial_support, pass, course_interest, geo_flex, self_development) "
             "values(?,?,?,?,?,?,?,?,?)",
-            row.candidate_id, row.sparta_day_id, row.psychometric_score, row.presentation_score, row.financial_support,
-            row.result, row.course_interest, row.geo_felx, row.self_development)
+            row.candidate_id, row.day_id, row.psychometric_score, row.presentation_score, row.financial_support_self,
+            row['pass'], row.course_interest, row.geo_flex, row.self_development)
     CNXN.commit()
-    CURSOR.close()
 
 
 def load_sparta_day(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (sparta_day_id, applicant_day_date_id, location_id) "
+            "INSERT INTO sparta_day (sparta_day_id, applicant_day_date_id, location_id) "
             "values(?,?,?)",
-            row.sparta_day_id, row.applicant_day_date_id, row.location_id)
+            int(row[0]), int(row[1]), int(row[2]))
     CNXN.commit()
-    CURSOR.close()
 
 
 def load_applicant_day_date(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (applicant_day_date_id, applicant_day_date) "
+            "INSERT INTO applicant_day_date (applicant_day_date_id, applicant_day_date) "
             "values(?,?)",
             row.applicant_day_date_id, row.applicant_day_date)
     CNXN.commit()
-    CURSOR.close()
 
 
 def load_test_location(df):
     for index, row in df.iterrows():
         CURSOR.execute(
-            "INSERT INTO TestTable (location_id, location_name) "
+            "INSERT INTO test_location (location_id, location_name) "
             "values(?,?)",
-            row.location_id, row.location_name)
+            int(row[0]), row[1])
     CNXN.commit()
-    CURSOR.close()
-
-
-
-
-
-
-
-
 
 
 ##########################################################################
 # TESTING
 def load_test():
-
     df = extract_csv('Talent/April2019Applicants.csv')
     df1 = df.where(pd.notnull(df), None)
 
@@ -219,9 +205,6 @@ def load_test():
             row.phone_number, row.uni, row.degree, row.invited_date, row.month, row.invited_by)
 
     CNXN.commit()
-    CURSOR.close()
-
-
 
 
 if __name__ == '__main__':
