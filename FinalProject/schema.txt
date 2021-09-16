@@ -44,14 +44,14 @@ CREATE TABLE sparta_skill (
 DROP TABLE IF EXISTS sparta_day_performance
 CREATE TABLE sparta_day_performance (
     candidate_id INT NOT NULL,
-    day_id INT NOT NULL,
-    psychometric_score FLOAT (50) NOT NULL,
-    presentation_score FLOAT (50) NOT NULL,
-    financial_support_self FLOAT (50) NOT NULL,
-    pass BIT NOT NULL,
-    course_interest VARCHAR (50) NOT NULL,
-    geo_flex BIT NOT NULL,
-    self_development BIT NOT NULL
+    day_id INT,
+    psychometric_score FLOAT (50),
+    presentation_score FLOAT (50),
+    financial_support_self FLOAT (50),
+    pass BIT,
+    course_interest VARCHAR (50),
+    geo_flex BIT,
+    self_development BIT
     )
 DROP TABLE IF EXISTS applicant_day_date
 CREATE TABLE applicant_day_date (

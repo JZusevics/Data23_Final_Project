@@ -15,7 +15,6 @@ def clean_all_files(extracted: list):
     talent_json = cleaned_json[0]
     skill_tables = cleaned_json[1:]
     talent_txt = clean_txt(extracted[2])
-    print(talent_txt)
     talent_csv = clean_talent_csv(extracted[3])
     # add candidate_id to talent_txt
     talent_txt = candidate_id_into_txt(talent_csv, talent_txt)

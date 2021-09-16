@@ -1,3 +1,5 @@
+import pandas as pd
+
 from FinalProject.app.extract.extract_talent_csv import *
 
 
@@ -153,12 +155,11 @@ def load_tech_skill(df):
 # ******* SPARTA DAY **********
 def load_sparta_day_performance(df):
     for index, row in df.iterrows():
-        print(index)
         CURSOR.execute(
-            "INSERT INTO TestTable (candidate_id, day_id, psychometric_score, presentation_score, "
-            "financial_support, pass, course_interest, geo_flex, self_development) "
+            "INSERT INTO sparta_day_performance (candidate_id, day_id, psychometric_score, presentation_score, "
+            "financial_support_self, pass, course_interest, geo_flex, self_development) "
             "values(?,?,?,?,?,?,?,?,?)",
-            row.candidate_id, row.day_id, row.psychometric_score, row.presentation_score, row.financial_support_self,
+            row[0], row.day_id, row.psychometric_score, row.presentation_score, row.financial_support_self,
             row['pass'], row.course_interest, row.geo_flex, row.self_development)
     CNXN.commit()
 
