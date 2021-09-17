@@ -50,7 +50,7 @@ def date_test(name_dates, format, candidate_json):
 
 def bool_fix(name_dates, candidate_json, yes_no_keys):
     """
-    Test that bool the three boolean key date pairs of financial_support_self, geo_flex and self_development are true
+    Test that the three boolean values financial_support_self, geo_flex and self_development are in bool format
     :param name_dates: Keys for iterating through the json file
     :param candidate_json: the json of all of the candidate date
     :param yes_no_key: List of three keys we are testing
