@@ -28,7 +28,7 @@ def clean_and_load(extracted):
 
     talent_txt_merge = vrindas_join_functions.talent_csv_txt(talent_csv, talent_txt)
     talent_academy_merge = vrindas_join_functions.talent_csv_json(talent_csv, academy_csv)
-    talent_json_merge = vrindas_join_functions.talent_csv_json(talent_csv, talent_json)
+    talent_json_merge = vrindas_join_functions.talent_csv_txt(talent_csv, talent_json)
 
     strength_junc, weakness_junc, tech_self_score = df_id_append.id_replace_call(json_skill_tables, talent_json_merge)
     talent_academy_merge, course_junc, course_info = df_id_gen.id_generator(talent_academy_merge)
