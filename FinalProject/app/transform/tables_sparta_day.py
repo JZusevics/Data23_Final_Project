@@ -28,10 +28,13 @@ def create_sparta_day_performance(talent_txt, talent_json):
 
     sparta_day, applicant_day_date, test_location, talent_txt = sparta_day_extract(talent_txt)
 
-    json_txt_joined = pd.merge(talent_json, talent_txt, on=['candidate_name'], how='outer')
+    applicant_day_date.rename(columns={'applicant_day_date_id': 'day_id'}, inplace=True)
+    added_date = pd.merge(talent_txt, applicant_day_date, on=['day_id'], how='outer')
 
+    json_txt_joined = pd.merge(added_date, talent_json, on=['candidate_name', 'applicant_day_date'], how='outer')
     sparta_day_performance = json_txt_joined.loc[:, ['candidate_id', 'day_id', 'psychometrics_score',
-                                                   'presentation_score', 'financial_support_self', 'pass',
-                                                   'course_interest', 'geo_flex', 'self_development']]
+                                                       'presentation_score', 'financial_support_self', 'pass',
+                                                       'course_interest', 'geo_flex', 'self_development']]
     sparta_day_performance.rename(columns={'psychometrics_score': 'psychometric_score'}, inplace=True)
     return sparta_day_performance
+
